@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Katalog Produk - Toko Berkah</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="stylesheet" href="assets/css/catalog.css" />
+
+    <link rel="stylesheet" href="assets/css/navbar.css" />
+  </head>
+
+  <body>
+    <!-- =========================
+       NAVBAR
+  ========================== -->
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="logo"> Toko Berkah </a>
+      </div>
+
+      <div class="search-box desktop-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input type="text" placeholder="Cari produk..." />
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html"> Home </a>
+
+        <a href="katalog.html"> Catalog </a>
+
+        <a href="login.html"> Login </a>
+      </nav>
+
+      <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </header>
+
+    <!-- MOBILE NAV -->
+
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html"> Home </a>
+
+      <a href="katalog.html"> Catalog </a>
+
+      <a href="login.html"> Login </a>
+    </div>
+
+    <!-- =========================
+       PAGE
+  ========================== -->
+
+    <main class="catalog-layout">
+      <!-- SIDEBAR -->
+
+      <aside class="catalog-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-header">
+            <h3>Filter Produk</h3>
+
+            <button id="reset-filter-btn" class="reset-btn">Reset</button>
+          </div>
+
+          <!-- SEARCH -->
+
+          <div class="filter-group">
+            <label> Cari Produk </label>
+
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Cari produk..."
+              />
+            </div>
+          </div>
+
+          <!-- CATEGORY -->
+
+          <div class="filter-group">
+            <label> Kategori </label>
+
+            <div id="category-chips" class="category-chips"></div>
+          </div>
+
+          <!-- SORT -->
+
+          <div class="filter-group">
+            <label> Urutkan </label>
+
+            <select id="sort-select">
+              <option value="latest">Produk Terbaru</option>
+
+              <option value="low">Harga Terendah</option>
+
+              <option value="high">Harga Tertinggi</option>
+            </select>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+
+      <section class="catalog-content">
+        <div class="content-header">
+          <div>
+            <h1>Semua Produk</h1>
+
+            <p>Temukan kebutuhan harian terbaik</p>
+          </div>
+
+          <div class="result-info">
+            <span id="result-count"> 0 </span>
+
+            produk ditemukan
+          </div>
+        </div>
+
+        <!-- LOADING -->
+
+        <div id="loading-state" class="loading-state">
+          <div class="loading-spinner"></div>
+        </div>
+
+        <!-- EMPTY -->
+
+        <div id="empty-state" class="empty-state hidden">
+          <i class="fa-solid fa-box-open"></i>
+
+          <h3>Produk tidak ditemukan</h3>
+
+          <p>Coba gunakan filter lain</p>
+        </div>
+
+        <!-- PRODUCTS -->
+
+        <div id="products-grid" class="products-grid"></div>
+      </section>
+    </main>
+
+    <!-- FLOATING WA -->
+
+    <button id="wa-btn" class="wa-btn" aria-label="WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </button>
+
+    <!-- =========================
+       SCRIPTS
+  ========================== -->
+
+    <script src="assets/js/core/storage.js"></script>
+
+    <script src="assets/js/services/product.service.js"></script>
+
+    <script src="assets/js/pages/catalog.js"></script>
+
+    <script src="assets/js/components/navbar.js"></script>
+  </body>
+</html>

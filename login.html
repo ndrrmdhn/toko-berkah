@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Login - Toko Berkah
+  </title>
+
+  <!-- GOOGLE FONT -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- MDB -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- FONT AWESOME -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- MAIN CSS -->
+  <link
+    rel="stylesheet"
+    href="assets/css/main.css"
+  >
+
+  <style>
+
+    .auth-page {
+
+      min-height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f0fdf4 0%,
+          #dcfce7 100%
+        );
+
+      padding: 20px;
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+    /* BACKGROUND DECORATION */
+    .auth-page::before,
+    .auth-page::after {
+
+      content: '';
+
+      position: absolute;
+
+      border-radius: 50%;
+
+      background:
+        rgba(22,163,74,.08);
+
+      z-index: 0;
+    }
+
+    .auth-page::before {
+
+      width: 320px;
+      height: 320px;
+
+      top: -100px;
+      left: -100px;
+    }
+
+    .auth-page::after {
+
+      width: 420px;
+      height: 420px;
+
+      bottom: -150px;
+      right: -150px;
+    }
+
+    .auth-wrapper {
+
+      width: 100%;
+      max-width: 1100px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2,1fr);
+
+      background: white;
+
+      border-radius: 28px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.12);
+
+      position: relative;
+
+      z-index: 1;
+    }
+
+    /* LEFT */
+    .auth-left {
+
+      background:
+        linear-gradient(
+          135deg,
+          #16a34a,
+          #15803d
+        );
+
+      color: white;
+
+      padding: 60px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+    }
+
+    .auth-left h1 {
+
+      font-size: 42px;
+
+      font-weight: 700;
+
+      margin-bottom: 20px;
+    }
+
+    .auth-left p {
+
+      font-size: 17px;
+
+      line-height: 1.8;
+
+      opacity: .92;
+    }
+
+    .auth-features {
+
+      margin-top: 40px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 18px;
+    }
+
+    .auth-feature {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 14px;
+    }
+
+    .auth-feature i {
+
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background:
+        rgba(255,255,255,.15);
+    }
+
+    /* RIGHT */
+    .auth-right {
+
+      padding: 55px;
+    }
+
+    .brand-logo {
+
+      text-align: center;
+
+      margin-bottom: 30px;
+    }
+
+    .brand-logo h2 {
+
+      font-size: 32px;
+
+      color: #16a34a;
+
+      font-weight: 700;
+    }
+
+    .brand-logo p {
+
+      color: #6b7280;
+
+      margin-top: 8px;
+    }
+
+    .nav-pills .nav-link {
+
+      border-radius: 12px;
+
+      font-weight: 600;
+
+      color: #374151;
+    }
+
+    .nav-pills .nav-link.active {
+
+      background: #16a34a;
+    }
+
+    .form-outline .form-control {
+
+      border-radius: 14px !important;
+    }
+
+    .form-outline .form-control:focus {
+
+      border-color: #16a34a;
+
+      box-shadow:
+        0 0 0 4px rgba(22,163,74,.12);
+    }
+
+    .btn-auth {
+
+      background: #16a34a;
+
+      color: white;
+
+      border-radius: 14px;
+
+      padding: 14px;
+
+      font-weight: 600;
+
+      transition: .25s;
+    }
+
+    .btn-auth:hover {
+
+      background: #15803d;
+
+      transform: translateY(-1px);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+
+      position: absolute;
+
+      right: 15px;
+
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      cursor: pointer;
+
+      color: #6b7280;
+
+      z-index: 10;
+    }
+
+    .auth-divider {
+
+      display: flex;
+
+      align-items: center;
+
+      margin: 24px 0;
+
+      color: #9ca3af;
+
+      font-size: 14px;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+
+      content: '';
+
+      flex: 1;
+
+      height: 1px;
+
+      background: #e5e7eb;
+    }
+
+    .auth-divider span {
+      margin: 0 14px;
+    }
+
+    .remember-wrapper {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      margin-bottom: 20px;
+    }
+
+    .remember-wrapper a {
+
+      color: #16a34a;
+
+      text-decoration: none;
+
+      font-size: 14px;
+    }
+
+    @media (max-width: 992px) {
+
+      .auth-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-left {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+
+      .auth-right {
+        padding: 30px 22px;
+      }
+    }
+
+  </style>
+
+</head>
+
+<body class="auth-page">
+
+  <div class="auth-wrapper">
+
+    <!-- LEFT -->
+    <div class="auth-left">
+
+      <h1>
+        Toko Berkah
+      </h1>
+
+      <p>
+        Dashboard admin modern untuk kelola <br>
+        produk, stok, dan transaksi toko.
+      </p>
+
+      <div class="auth-features">
+
+        <div class="auth-feature">
+          <i class="fa-solid fa-box"></i>
+          <span>Manajemen Produk</span>
+        </div>
+
+        <div class="auth-feature">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Statistik Dashboard</span>
+        </div>
+
+        <div class="auth-feature">
+          <i class="fa-solid fa-lock"></i>
+          <span>Sistem Aman</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="auth-right">
+
+      <div class="brand-logo">
+
+        <h2>Login Admin</h2>
+
+        <p>
+          Selamat datang kembali
+        </p>
+
+      </div>
+
+      <!-- NAV -->
+      <ul
+        class="nav nav-pills nav-justified mb-4"
+        role="tablist"
+      >
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link active text-white"
+            data-mdb-pill-init
+            href="#"
+          >
+            Login
+          </a>
+
+        </li>
+
+        <li class="nav-item">
+
+          <a
+            class="nav-link"
+            data-mdb-pill-init
+            href="index.html"
+          >
+            Home
+          </a>
+          <!-- <a
+            class="nav-link"
+            data-mdb-pill-init
+            href="#register-tab"
+          >
+            Register
+          </a> -->
+
+        </li>
+
+      </ul>
+
+      <div class="tab-content">
+
+        <!-- LOGIN -->
+        <div
+          class="tab-pane fade show active"
+          id="login-tab"
+        >
+
+          <form id="login-form">
+
+            <div class="form-outline mb-4">
+
+              <input
+                type="text"
+                id="login-username"
+                class="form-control"
+                required
+              >
+
+              <label class="form-label">
+                Username
+              </label>
+
+            </div>
+
+            <div class="password-wrapper mb-4">
+
+              <div class="form-outline">
+
+                <input
+                  type="password"
+                  id="login-password"
+                  class="form-control"
+                  required
+                >
+
+                <label class="form-label">
+                  Password
+                </label>
+
+              </div>
+
+              <i
+                class="fa-solid fa-eye toggle-password"
+                data-target="login-password"
+              ></i>
+
+            </div>
+
+            <div class="remember-wrapper">
+
+              <div class="form-check">
+
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  checked
+                >
+
+                <label class="form-check-label">
+                  Remember me
+                </label>
+
+              </div>
+
+              <a href="#">
+                Lupa password?
+              </a>
+
+            </div>
+
+            <div
+              id="login-error"
+              class="text-danger mb-3"
+            ></div>
+
+            <button
+              type="submit"
+              class="btn btn-auth w-100"
+            >
+              Login
+            </button>
+
+          </form>
+
+        </div>
+
+        <!-- REGISTER -->
+        <div
+          class="tab-pane fade"
+          id="register-tab"
+        >
+
+          <form id="register-form">
+
+            <div class="form-outline mb-4">
+
+              <input
+                type="text"
+                id="register-name"
+                class="form-control"
+                required
+              >
+
+              <label class="form-label">
+                Nama Lengkap
+              </label>
+
+            </div>
+
+            <div class="form-outline mb-4">
+
+              <input
+                type="text"
+                id="register-username"
+                class="form-control"
+                required
+              >
+
+              <label class="form-label">
+                Username
+              </label>
+
+            </div>
+
+            <div class="form-outline mb-4">
+
+              <input
+                type="email"
+                id="register-email"
+                class="form-control"
+                required
+              >
+
+              <label class="form-label">
+                Email
+              </label>
+
+            </div>
+
+            <div class="password-wrapper mb-4">
+
+              <div class="form-outline">
+
+                <input
+                  type="password"
+                  id="register-password"
+                  class="form-control"
+                  required
+                >
+
+                <label class="form-label">
+                  Password
+                </label>
+
+              </div>
+
+              <i
+                class="fa-solid fa-eye toggle-password"
+                data-target="register-password"
+              ></i>
+
+            </div>
+
+            <div class="password-wrapper mb-4">
+
+              <div class="form-outline">
+
+                <input
+                  type="password"
+                  id="register-confirm"
+                  class="form-control"
+                  required
+                >
+
+                <label class="form-label">
+                  Konfirmasi Password
+                </label>
+
+              </div>
+
+              <i
+                class="fa-solid fa-eye toggle-password"
+                data-target="register-confirm"
+              ></i>
+
+            </div>
+
+            <div
+              id="register-error"
+              class="text-danger mb-3"
+            ></div>
+
+            <button
+              type="submit"
+              class="btn btn-auth w-100"
+            >
+              Register
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.js"></script>
+
+  <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/state.js"></script>
+
+  <script src="assets/js/services/auth.service.js"></script>
+
+  <script src="assets/js/ui/toast.js"></script>
+
+  <script src="assets/js/pages/login.js"></script>
+
+  <script>
+
+    // TOGGLE PASSWORD
+    document
+      .querySelectorAll('.toggle-password')
+      .forEach(icon => {
+
+        icon.addEventListener(
+          'click',
+          () => {
+
+            const input =
+              document.getElementById(
+                icon.dataset.target
+              );
+
+            if (
+              input.type === 'password'
+            ) {
+
+              input.type = 'text';
+
+              icon.classList.replace(
+                'fa-eye',
+                'fa-eye-slash'
+              );
+
+            } else {
+
+              input.type = 'password';
+
+              icon.classList.replace(
+                'fa-eye-slash',
+                'fa-eye'
+              );
+            }
+
+          }
+        );
+
+      });
+
+  </script>
+
+</body>
+</html>

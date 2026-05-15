@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Toko Berkah - Marketplace Sembako</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link rel="stylesheet" href="assets/css/home.css" />
+
+    <link rel="stylesheet" href="assets/css/navbar.css" />
+  </head>
+
+  <body>
+    <!-- ======================
+       NAVBAR
+  ======================= -->
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="logo"> Toko Berkah </a>
+      </div>
+
+      <div class="search-box desktop-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input type="text" placeholder="Cari produk..." />
+      </div>
+
+      <nav class="nav-links">
+        <a href="index.html"> Home </a>
+
+        <a href="katalog.html"> Catalog </a>
+
+        <a href="login.html"> Login </a>
+      </nav>
+
+      <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </header>
+
+    <!-- MOBILE NAV -->
+
+    <div class="mobile-nav" id="mobile-nav">
+      <a href="index.html"> Home </a>
+
+      <a href="katalog.html"> Catalog </a>
+
+      <a href="login.html"> Login </a>
+    </div>
+
+    <!-- ======================
+       HERO
+  ======================= -->
+
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-badge"> Marketplace Sembako Modern </span>
+
+        <h1>Belanja Kebutuhan Harian Jadi Lebih Mudah</h1>
+
+        <p>
+          Sembako, minuman, snack, hingga kebutuhan rumah tangga tersedia
+          lengkap dengan harga terbaik.
+        </p>
+
+        <div class="hero-actions">
+          <a href="katalog.html" class="btn btn-primary"> Belanja Sekarang </a>
+
+          <a href="#featured-products" class="btn btn-dark"> Lihat Produk </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================
+       CATEGORY
+  ======================= -->
+
+    <section class="categories-wrapper">
+      <div class="categories">
+        <button class="cat active">Semua</button>
+
+        <button class="cat">Sembako</button>
+
+        <button class="cat">Minuman</button>
+
+        <button class="cat">Snack</button>
+
+        <button class="cat">Pulsa</button>
+
+        <button class="cat">Kontrakan</button>
+      </div>
+    </section>
+
+    <!-- ======================
+       PRODUCTS
+  ======================= -->
+
+    <main class="container">
+      <div class="section-header">
+        <div>
+          <h2>Produk Populer</h2>
+
+          <p>Produk pilihan dengan harga terbaik</p>
+        </div>
+      </div>
+
+      <!-- LOADING -->
+      <div id="loading-products" class="loading-state">
+        <div class="loading-spinner"></div>
+      </div>
+
+      <!-- PRODUCT GRID -->
+      <div id="featured-products" class="products-grid"></div>
+
+      <!-- EMPTY -->
+      <div id="empty-products" class="empty-state hidden">
+        <i class="fa-solid fa-box-open"></i>
+
+        <h3>Produk tidak ditemukan</h3>
+
+        <p>Coba gunakan kata kunci lain</p>
+      </div>
+    </main>
+
+    <!-- ======================
+       FOOTER
+  ======================= -->
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div>
+          <h3>Toko Berkah</h3>
+
+          <p>Marketplace kebutuhan harian modern dengan harga terjangkau.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#"> Tentang </a>
+
+          <a href="#"> Bantuan </a>
+
+          <a href="#"> Kontak </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ======================
+       FLOATING WA
+  ======================= -->
+
+    <button class="wa-btn" id="wa-btn" aria-label="Chat WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </button>
+
+    <!-- ======================
+       SCRIPTS
+  ======================= -->
+
+    <script src="assets/js/core/storage.js"></script>
+
+    <script src="assets/js/services/product.service.js"></script>
+
+    <script src="assets/js/pages/home.js"></script>
+    <script src="assets/js/components/navbar.js"></script>
+  </body>
+</html>
