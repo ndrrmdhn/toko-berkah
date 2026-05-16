@@ -1,49 +1,31 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>
     Login - Toko Berkah
   </title>
 
   <!-- GOOGLE FONT -->
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- MDB -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css" rel="stylesheet">
 
   <!-- FONT AWESOME -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    rel="stylesheet"
-  >
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 
   <!-- MAIN CSS -->
-  <link
-    rel="stylesheet"
-    href="assets/css/main.css"
-  >
+  <link rel="stylesheet" href="assets/css/main.css">
 
   <style>
-
     .auth-page {
 
       min-height: 100vh;
@@ -55,11 +37,9 @@
       justify-content: center;
 
       background:
-        linear-gradient(
-          135deg,
+        linear-gradient(135deg,
           #f0fdf4 0%,
-          #dcfce7 100%
-        );
+          #dcfce7 100%);
 
       padding: 20px;
 
@@ -79,7 +59,7 @@
       border-radius: 50%;
 
       background:
-        rgba(22,163,74,.08);
+        rgba(22, 163, 74, .08);
 
       z-index: 0;
     }
@@ -110,7 +90,7 @@
       display: grid;
 
       grid-template-columns:
-        repeat(2,1fr);
+        repeat(2, 1fr);
 
       background: white;
 
@@ -119,7 +99,7 @@
       overflow: hidden;
 
       box-shadow:
-        0 20px 60px rgba(0,0,0,.12);
+        0 20px 60px rgba(0, 0, 0, .12);
 
       position: relative;
 
@@ -130,11 +110,9 @@
     .auth-left {
 
       background:
-        linear-gradient(
-          135deg,
+        linear-gradient(135deg,
           #16a34a,
-          #15803d
-        );
+          #15803d);
 
       color: white;
 
@@ -199,7 +177,7 @@
       border-radius: 12px;
 
       background:
-        rgba(255,255,255,.15);
+        rgba(255, 255, 255, .15);
     }
 
     /* RIGHT */
@@ -255,7 +233,7 @@
       border-color: #16a34a;
 
       box-shadow:
-        0 0 0 4px rgba(22,163,74,.12);
+        0 0 0 4px rgba(22, 163, 74, .12);
     }
 
     .btn-auth {
@@ -367,7 +345,6 @@
         padding: 30px 22px;
       }
     }
-
   </style>
 
 </head>
@@ -423,18 +400,11 @@
       </div>
 
       <!-- NAV -->
-      <ul
-        class="nav nav-pills nav-justified mb-4"
-        role="tablist"
-      >
+      <ul class="nav nav-pills nav-justified mb-4" role="tablist">
 
         <li class="nav-item">
 
-          <a
-            class="nav-link active text-white"
-            data-mdb-pill-init
-            href="#"
-          >
+          <a class="nav-link active text-white" data-mdb-pill-init href="#">
             Login
           </a>
 
@@ -442,11 +412,7 @@
 
         <li class="nav-item">
 
-          <a
-            class="nav-link"
-            data-mdb-pill-init
-            href="index.html"
-          >
+          <a class="nav-link" data-mdb-pill-init href="index.html">
             Home
           </a>
           <!-- <a
@@ -464,21 +430,13 @@
       <div class="tab-content">
 
         <!-- LOGIN -->
-        <div
-          class="tab-pane fade show active"
-          id="login-tab"
-        >
+        <div class="tab-pane fade show active" id="login-tab">
 
           <form id="login-form">
 
             <div class="form-outline mb-4">
 
-              <input
-                type="text"
-                id="login-username"
-                class="form-control"
-                required
-              >
+              <input type="text" id="login-username" class="form-control" required>
 
               <label class="form-label">
                 Username
@@ -490,12 +448,7 @@
 
               <div class="form-outline">
 
-                <input
-                  type="password"
-                  id="login-password"
-                  class="form-control"
-                  required
-                >
+                <input type="password" id="login-password" class="form-control" required>
 
                 <label class="form-label">
                   Password
@@ -503,10 +456,7 @@
 
               </div>
 
-              <i
-                class="fa-solid fa-eye toggle-password"
-                data-target="login-password"
-              ></i>
+              <i class="fa-solid fa-eye toggle-password" data-target="login-password"></i>
 
             </div>
 
@@ -514,11 +464,7 @@
 
               <div class="form-check">
 
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  checked
-                >
+                <input class="form-check-input" type="checkbox" checked>
 
                 <label class="form-check-label">
                   Remember me
@@ -532,15 +478,9 @@
 
             </div>
 
-            <div
-              id="login-error"
-              class="text-danger mb-3"
-            ></div>
+            <div id="login-error" class="text-danger mb-3"></div>
 
-            <button
-              type="submit"
-              class="btn btn-auth w-100"
-            >
+            <button type="submit" class="btn btn-auth w-100">
               Login
             </button>
 
@@ -549,21 +489,13 @@
         </div>
 
         <!-- REGISTER -->
-        <div
-          class="tab-pane fade"
-          id="register-tab"
-        >
+        <div class="tab-pane fade" id="register-tab">
 
           <form id="register-form">
 
             <div class="form-outline mb-4">
 
-              <input
-                type="text"
-                id="register-name"
-                class="form-control"
-                required
-              >
+              <input type="text" id="register-name" class="form-control" required>
 
               <label class="form-label">
                 Nama Lengkap
@@ -573,12 +505,7 @@
 
             <div class="form-outline mb-4">
 
-              <input
-                type="text"
-                id="register-username"
-                class="form-control"
-                required
-              >
+              <input type="text" id="register-username" class="form-control" required>
 
               <label class="form-label">
                 Username
@@ -588,12 +515,7 @@
 
             <div class="form-outline mb-4">
 
-              <input
-                type="email"
-                id="register-email"
-                class="form-control"
-                required
-              >
+              <input type="email" id="register-email" class="form-control" required>
 
               <label class="form-label">
                 Email
@@ -605,12 +527,7 @@
 
               <div class="form-outline">
 
-                <input
-                  type="password"
-                  id="register-password"
-                  class="form-control"
-                  required
-                >
+                <input type="password" id="register-password" class="form-control" required>
 
                 <label class="form-label">
                   Password
@@ -618,10 +535,7 @@
 
               </div>
 
-              <i
-                class="fa-solid fa-eye toggle-password"
-                data-target="register-password"
-              ></i>
+              <i class="fa-solid fa-eye toggle-password" data-target="register-password"></i>
 
             </div>
 
@@ -629,12 +543,7 @@
 
               <div class="form-outline">
 
-                <input
-                  type="password"
-                  id="register-confirm"
-                  class="form-control"
-                  required
-                >
+                <input type="password" id="register-confirm" class="form-control" required>
 
                 <label class="form-label">
                   Konfirmasi Password
@@ -642,22 +551,13 @@
 
               </div>
 
-              <i
-                class="fa-solid fa-eye toggle-password"
-                data-target="register-confirm"
-              ></i>
+              <i class="fa-solid fa-eye toggle-password" data-target="register-confirm"></i>
 
             </div>
 
-            <div
-              id="register-error"
-              class="text-danger mb-3"
-            ></div>
+            <div id="register-error" class="text-danger mb-3"></div>
 
-            <button
-              type="submit"
-              class="btn btn-auth w-100"
-            >
+            <button type="submit" class="btn btn-auth w-100">
               Register
             </button>
 
@@ -675,11 +575,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.js"></script>
 
   <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/helpers.js"></script>
   <script src="assets/js/core/state.js"></script>
 
   <script src="assets/js/services/auth.service.js"></script>
 
   <script src="assets/js/ui/toast.js"></script>
+
+  <script src="assets/js/app.js"></script>
 
   <script src="assets/js/pages/login.js"></script>
 
@@ -728,4 +631,5 @@
   </script>
 
 </body>
+
 </html>

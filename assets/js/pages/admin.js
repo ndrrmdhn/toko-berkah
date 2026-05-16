@@ -1,617 +1,362 @@
 const AdminState = {
   editId: null,
-  search: ''
+  search: '',
+  currentTab: 'products'
 };
 
 const DOM = {};
 
-document.addEventListener(
-  'DOMContentLoaded',
-  initAdmin
-);
+document.addEventListener('DOMContentLoaded', initAdmin);
 
 function initAdmin() {
-
   try {
-
     if (!AuthService.check()) {
+      window.location.href = 'login.html';
       return;
     }
 
     cacheDOM();
-
-    bindEvents();
-
+    bindTabEvents();
+    bindProductEvents();
+    bindRentalEvents();
+    bindCMSEvents();
     renderAdminName();
-
-    renderDashboard();
-
+    showTab('products');
   } catch (error) {
-
-    console.error(error);
-
-    showToast(
-      'Terjadi kesalahan sistem'
-    );
+    console.error('[Admin Init Error]', error);
+    showToast('Terjadi kesalahan sistem');
   }
 }
 
 function cacheDOM() {
-
-  DOM.tbody =
-    document.getElementById(
-      'product-table-body'
-    );
-
-  DOM.form =
-    document.getElementById(
-      'product-form'
-    );
-
-  DOM.search =
-    document.getElementById(
-      'search-input'
-    );
-
-  DOM.modal =
-    document.getElementById(
-      'product-modal'
-    );
-
-  DOM.empty =
-    document.getElementById(
-      'empty-state'
-    );
+  DOM.tbody = document.getElementById('product-table-body');
+  DOM.form = document.getElementById('product-form');
+  DOM.search = document.getElementById('search-products');
+  DOM.modal = document.getElementById('product-modal');
+  DOM.empty = document.getElementById('empty-products');
 }
 
-function bindEvents() {
+/* ===== TAB MANAGEMENT ===== */
 
-  document
-    .getElementById('logout-btn')
-    .addEventListener(
-      'click',
-      AuthService.logout
-    );
+function bindTabEvents() {
+  document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const tab = item.dataset.tab;
+      if (tab) showTab(tab);
+    });
+  });
 
-  document
-    .getElementById('add-product-btn')
-    .addEventListener(
-      'click',
-      openCreateModal
-    );
-
-  document
-    .getElementById('close-modal-btn')
-    .addEventListener(
-      'click',
-      closeModal
-    );
-
-  DOM.form.addEventListener(
-    'submit',
-    handleSubmit
-  );
-
-  // SEARCH
-  if (DOM.search) {
-
-    DOM.search.addEventListener(
-      'input',
-      e => {
-
-        AdminState.search =
-          e.target.value.toLowerCase();
-
-        renderProducts();
-
-      }
-    );
-  }
-
-  // EVENT DELEGATION
-  DOM.tbody.addEventListener(
-    'click',
-    handleTableClick
-  );
-
-  // ESC CLOSE
-  document.addEventListener(
-    'keydown',
-    e => {
-
-      if (e.key === 'Escape') {
-        closeModal();
-      }
-
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeProductModal();
+      closeRentalModalFn();
+      closeCMSModalFn();
     }
-  );
+  });
+}
 
-  // IMAGE PREVIEW
-  const imageInput =
-    document.getElementById(
-      'product-image'
-    );
+function showTab(tabName) {
+  AdminState.currentTab = tabName;
 
-  if (imageInput) {
+  // Hide all tabs
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
 
-    imageInput.addEventListener(
-      'input',
-      updatePreview
-    );
+  // Show selected tab
+  const tab = document.getElementById(tabName + '-tab');
+  if (tab) tab.classList.add('active');
+
+  // Update sidebar active
+  document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+    item.classList.toggle('active', item.dataset.tab === tabName);
+  });
+
+  // Update section title
+  const sectionTitle = document.getElementById('section-title');
+  if (sectionTitle) {
+    const titles = {
+      products: 'Kelola produk marketplace',
+      rentals: 'Kelola kontrakan dan properti',
+      cms: 'Kelola konten website'
+    };
+    sectionTitle.textContent = titles[tabName] || '';
+  }
+
+  // Render content
+  if (tabName === 'products') {
+    renderProductDashboard();
+  } else if (tabName === 'rentals') {
+    renderRentalDashboard();
+  } else if (tabName === 'cms') {
+    renderCMSDashboard();
   }
 }
 
-function renderDashboard() {
+/* ===== PRODUCT TAB MANAGEMENT ===== */
 
-  renderProducts();
-
-  renderStats();
+function renderProductDashboard() {
+  renderProductStats();
+  renderProductTable();
 }
 
-function renderAdminName() {
+function renderProductStats() {
+  const products = ProductService.getAll();
+  const totalProducts = document.getElementById('total-products');
+  const totalStock = document.getElementById('total-stock');
 
-  const el =
-    document.getElementById(
-      'admin-name'
-    );
-
-  if (!el) return;
-
-  const user =
-    Storage.get(
-      'currentUser'
-    );
-
-  el.textContent =
-    `Halo, ${user?.username || 'Admin'}`;
+  if (totalProducts) totalProducts.textContent = products.length;
+  if (totalStock) {
+    totalStock.textContent = products.reduce((sum, item) => sum + item.stock, 0);
+  }
 }
 
-function renderProducts() {
+function renderProductTable() {
+  const tbody = document.getElementById('product-table-body');
+  const empty = document.getElementById('empty-products');
 
-  if (!DOM.tbody) return;
+  if (!tbody) return;
 
-  let products =
-    ProductService.getAll();
+  let products = ProductService.getAll();
 
-  // FILTER SEARCH
-  if (AdminState.search) {
-
-    products =
-      products.filter(product =>
-        product.name
-          .toLowerCase()
-          .includes(AdminState.search)
-      );
+  const searchInput = document.getElementById('search-products');
+  if (searchInput && searchInput.value) {
+    const query = searchInput.value.toLowerCase();
+    products = products.filter(product =>
+      product.name.toLowerCase().includes(query)
+    );
   }
 
-  renderEmptyState(products);
+  if (empty) {
+    empty.classList.toggle('hidden', products.length > 0);
+  }
 
-  DOM.tbody.innerHTML =
-    products.map(renderRow).join('');
-}
-
-function renderRow(product) {
-
-  return `
+  tbody.innerHTML = products.map(product => `
     <tr>
-
       <td>
-
         <div class="product-info">
-
           <img
             src="${escapeHTML(product.image)}"
             class="product-thumb"
             alt="${escapeHTML(product.name)}"
-            onerror="
-              this.src='https://placehold.co/100'
-            "
+            onerror="this.src='https://placehold.co/100'"
           >
-
           <div>
-
-            <strong>
-              ${escapeHTML(product.name)}
-            </strong>
-
-            <p>
-              ${escapeHTML(
-                product.description || '-'
-              )}
-            </p>
-
+            <strong>${escapeHTML(product.name)}</strong>
+            <p>${escapeHTML(product.description || '-')}</p>
           </div>
-
         </div>
-
       </td>
-
+      <td>${formatPrice(product.price)}</td>
+      <td>${product.stock}</td>
+      <td>${escapeHTML(product.category)}</td>
       <td>
-        ${formatPrice(product.price)}
-      </td>
-
-      <td>
-        ${product.stock}
-      </td>
-
-      <td>
-        ${escapeHTML(product.category)}
-      </td>
-
-      <td>
-
-        <button
-          class="btn btn-warning"
-          data-action="edit"
-          data-id="${product.id}"
-        >
-          Edit
+        <button class="btn btn-sm ${product.visible ? 'btn-success' : 'btn-secondary'}" data-action="toggle-visible" data-id="${product.id}">
+          ${product.visible ? 'Tampil' : 'Sembunyi'}
         </button>
-
-        <button
-          class="btn btn-danger"
-          data-action="delete"
-          data-id="${product.id}"
-        >
-          Hapus
-        </button>
-
       </td>
-
+      <td>
+        <button class="btn btn-warning" data-action="edit" data-id="${product.id}">Edit</button>
+        <button class="btn btn-danger" data-action="delete" data-id="${product.id}">Hapus</button>
+      </td>
     </tr>
-  `;
+  `).join('');
 }
 
-function handleTableClick(e) {
-
-  const button =
-    e.target.closest('button');
-
-  if (!button) return;
-
-  const id =
-    Number(button.dataset.id);
-
-  const action =
-    button.dataset.action;
-
-  if (action === 'edit') {
-    editProduct(id);
+function bindProductEvents() {
+  const searchProducts = document.getElementById('search-products');
+  if (searchProducts) {
+    searchProducts.addEventListener('input', () => renderProductTable());
   }
 
-  if (action === 'delete') {
-    deleteProduct(id);
-  }
-}
-
-function renderStats() {
-
-  const products =
-    ProductService.getAll();
-
-  const totalProducts =
-    document.getElementById(
-      'total-products'
-    );
-
-  const totalStock =
-    document.getElementById(
-      'total-stock'
-    );
-
-  if (totalProducts) {
-
-    totalProducts.textContent =
-      products.length;
+  const addProductBtn = document.getElementById('add-product-btn');
+  if (addProductBtn) {
+    addProductBtn.addEventListener('click', openProductModal);
   }
 
-  if (totalStock) {
+  const closeProductModalBtn = document.getElementById('close-product-modal');
+  if (closeProductModalBtn) {
+    closeProductModalBtn.addEventListener('click', closeProductModal);
+  }
 
-    totalStock.textContent =
-      products.reduce(
-        (sum, item) =>
-          sum + item.stock,
-        0
-      );
+  const productForm = document.getElementById('product-form');
+  if (productForm) {
+    productForm.addEventListener('submit', handleProductSubmit);
+  }
+
+  const productImage = document.getElementById('product-image');
+  if (productImage) {
+    productImage.addEventListener('input', () => {
+      const preview = document.getElementById('preview-product');
+      if (preview) {
+        preview.src = productImage.value || 'https://placehold.co/300x200';
+      }
+    });
+  }
+
+  const productTbody = document.getElementById('product-table-body');
+  if (productTbody) {
+    productTbody.addEventListener('click', handleProductTableClick);
   }
 }
 
-function renderEmptyState(products) {
+let adminProductEditId = null;
 
-  if (!DOM.empty) return;
+function openProductModal() {
+  adminProductEditId = null;
+  const form = document.getElementById('product-form');
+  if (form) form.reset();
 
-  if (!products.length) {
+  const title = document.getElementById('product-modal-title');
+  if (title) title.textContent = 'Tambah Produk';
 
-    DOM.empty.classList.remove(
-      'hidden'
-    );
+  const preview = document.getElementById('preview-product');
+  if (preview) preview.src = 'https://placehold.co/300x200';
 
-  } else {
-
-    DOM.empty.classList.add(
-      'hidden'
-    );
-  }
-}
-
-function openCreateModal() {
-
-  AdminState.editId = null;
-
-  DOM.form.reset();
-
-  document.getElementById(
-    'modal-title'
-  ).textContent =
-    'Tambah Produk';
-
-  updatePreview();
+  const visibleCheckbox = document.getElementById('product-visible');
+  if (visibleCheckbox) visibleCheckbox.checked = true;
 
   Modal.open('product-modal');
 }
 
-function closeModal() {
-
+function closeProductModal() {
   Modal.close('product-modal');
 }
 
+function handleProductTableClick(e) {
+  const button = e.target.closest('button');
+  if (!button) return;
+
+  const id = Number(button.dataset.id);
+  const action = button.dataset.action;
+
+  if (action === 'edit') editProduct(id);
+  else if (action === 'delete') deleteProduct(id);
+  else if (action === 'toggle-visible') toggleProductVisible(id);
+}
+
 function editProduct(id) {
-
-  const product =
-    ProductService.find(id);
-
+  const product = ProductService.find(id);
   if (!product) return;
 
-  AdminState.editId = id;
+  adminProductEditId = id;
 
-  setValue(
-    'product-name',
-    product.name
-  );
+  document.getElementById('product-name').value = product.name;
+  document.getElementById('product-price').value = product.price;
+  document.getElementById('product-stock').value = product.stock;
+  document.getElementById('product-category').value = product.category;
+  document.getElementById('product-description').value = product.description;
+  document.getElementById('product-image').value = product.image;
+  document.getElementById('product-visible').checked = product.visible;
 
-  setValue(
-    'product-price',
-    product.price
-  );
+  const preview = document.getElementById('preview-product');
+  if (preview) preview.src = product.image;
 
-  setValue(
-    'product-stock',
-    product.stock
-  );
-
-  setValue(
-    'product-category',
-    product.category
-  );
-
-  setValue(
-    'product-description',
-    product.description
-  );
-
-  setValue(
-    'product-image',
-    product.image
-  );
-
-  document.getElementById(
-    'modal-title'
-  ).textContent =
-    'Edit Produk';
-
-  updatePreview();
+  const title = document.getElementById('product-modal-title');
+  if (title) title.textContent = 'Edit Produk';
 
   Modal.open('product-modal');
 }
 
-function handleSubmit(e) {
-
+function handleProductSubmit(e) {
   e.preventDefault();
 
-  const submitBtn =
-    document.getElementById(
-      'submit-btn'
-    );
-
-  submitBtn.disabled = true;
-
-  submitBtn.textContent =
-    'Menyimpan...';
+  const submitBtn = document.getElementById('submit-product-btn');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Menyimpan...';
+  }
 
   try {
+    const data = {
+      name: document.getElementById('product-name').value.trim(),
+      price: Number(document.getElementById('product-price').value),
+      stock: Number(document.getElementById('product-stock').value),
+      category: document.getElementById('product-category').value,
+      description: document.getElementById('product-description').value.trim(),
+      image: document.getElementById('product-image').value.trim() || 'https://placehold.co/300x200',
+      visible: document.getElementById('product-visible').checked
+    };
 
-    const product =
-      getFormData();
-
-    const validation =
-      validateProduct(product);
-
-    if (!validation.valid) {
-
-      showToast(
-        validation.message
-      );
-
+    if (!data.name || data.price <= 0) {
+      showToast('Data tidak lengkap atau tidak valid');
       return;
     }
 
-    if (AdminState.editId) {
-
-      ProductService.update(
-        AdminState.editId,
-        product
-      );
-
-      showToast(
-        'Produk berhasil diupdate'
-      );
-
+    if (adminProductEditId) {
+      ProductService.update(adminProductEditId, data);
+      showToast('Produk berhasil diupdate');
     } else {
-
-      ProductService.create(product);
-
-      showToast(
-        'Produk berhasil ditambahkan'
-      );
+      ProductService.create(data);
+      showToast('Produk berhasil ditambahkan');
     }
 
-    renderDashboard();
-
-    closeModal();
-
+    renderProductDashboard();
+    closeProductModal();
   } catch (error) {
-
     console.error(error);
-
-    showToast(
-      'Gagal menyimpan produk'
-    );
-
+    showToast('Gagal menyimpan produk');
   } finally {
-
-    submitBtn.disabled = false;
-
-    submitBtn.textContent =
-      'Simpan Produk';
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Simpan Produk';
+    }
   }
-}
-
-function getFormData() {
-
-  return {
-
-    name:
-      getValue(
-        'product-name'
-      ).trim(),
-
-    price:
-      Number(
-        getValue(
-          'product-price'
-        )
-      ),
-
-    stock:
-      Number(
-        getValue(
-          'product-stock'
-        )
-      ),
-
-    category:
-      getValue(
-        'product-category'
-      ),
-
-    description:
-      getValue(
-        'product-description'
-      ),
-
-    image:
-      getValue(
-        'product-image'
-      ) ||
-      'https://placehold.co/300x200'
-  };
-}
-
-function validateProduct(product) {
-
-  if (!product.name) {
-
-    return {
-      valid: false,
-      message: 'Nama wajib diisi'
-    };
-  }
-
-  if (product.price <= 0) {
-
-    return {
-      valid: false,
-      message: 'Harga tidak valid'
-    };
-  }
-
-  if (product.stock < 0) {
-
-    return {
-      valid: false,
-      message: 'Stok tidak valid'
-    };
-  }
-
-  return {
-    valid: true
-  };
 }
 
 function deleteProduct(id) {
-
-  const confirmed =
-    confirm(
-      'Yakin ingin menghapus produk?'
-    );
-
-  if (!confirmed) return;
+  if (!confirm('Yakin ingin menghapus produk?')) return;
 
   ProductService.delete(id);
-
-  renderDashboard();
-
-  showToast(
-    'Produk berhasil dihapus'
-  );
+  renderProductDashboard();
+  showToast('Produk berhasil dihapus');
 }
 
-function updatePreview() {
+function toggleProductVisible(id) {
+  const product = ProductService.find(id);
+  if (!product) return;
 
-  const preview =
-    document.getElementById(
-      'preview-image'
-    );
+  ProductService.update(id, {
+    visible: !product.visible
+  });
 
-  if (!preview) return;
-
-  preview.src =
-    getValue('product-image')
-    ||
-    'https://placehold.co/300x200';
+  renderProductTable();
 }
 
-function getValue(id) {
+function renderAdminName() {
+  const el = document.getElementById('admin-name');
+  if (!el) return;
 
-  return document
-    .getElementById(id)
-    .value;
+  const user = Storage.get('currentUser');
+  el.textContent = `Halo, ${user?.username || 'Admin'}`;
 }
 
-function setValue(id, value) {
-
-  document
-    .getElementById(id)
-    .value = value || '';
-}
+/* ===== HELPERS ===== */
 
 function formatPrice(price) {
-
-  return new Intl.NumberFormat(
-    'id-ID',
-    {
-      style: 'currency',
-      currency: 'IDR'
-    }
-  ).format(price);
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR'
+  }).format(price || 0);
 }
 
 function escapeHTML(text = '') {
-
-  return text
+  return String(text)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
+
+/* LOGOUT */
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutBtn = document.getElementById('logout-btn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      AuthService.logout();
+      window.location.href = 'login.html';
+    });
+  }
+});

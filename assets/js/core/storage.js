@@ -4,17 +4,19 @@ const Storage = {
 
     try {
 
-      const value =
+      const raw =
         localStorage.getItem(key);
 
-      return value
-        ? JSON.parse(value)
-        : defaultValue;
+      if (!raw) {
+        return defaultValue;
+      }
+
+      return JSON.parse(raw);
 
     } catch (error) {
 
       console.error(
-        `Storage get error: ${key}`,
+        `[Storage] GET ${key}`,
         error
       );
 
@@ -36,7 +38,7 @@ const Storage = {
     } catch (error) {
 
       console.error(
-        `Storage set error: ${key}`,
+        `[Storage] SET ${key}`,
         error
       );
 
@@ -46,11 +48,31 @@ const Storage = {
 
   remove(key) {
 
-    localStorage.removeItem(key);
+    try {
+
+      localStorage.removeItem(key);
+
+    } catch (error) {
+
+      console.error(
+        `[Storage] REMOVE ${key}`,
+        error
+      );
+    }
   },
 
   clear() {
 
-    localStorage.clear();
+    try {
+
+      localStorage.clear();
+
+    } catch (error) {
+
+      console.error(
+        '[Storage] CLEAR',
+        error
+      );
+    }
   }
 };

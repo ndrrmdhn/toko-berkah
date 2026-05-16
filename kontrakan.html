@@ -1,18 +1,162 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kontrakan - Toko Berkah</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Daftar Kontrakan - Toko Berkah</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/catalog.css">
+  <link rel="stylesheet" href="assets/css/navbar.css">
 </head>
+
 <body>
-  <nav class="navbar">... (sama) ...</nav>
+  <!-- NAVBAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="logo">Toko Berkah</a>
+    </div>
 
-  <div id="kontrakan-list" class="products-grid"></div>
+    <div class="search-box desktop-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Cari kontrakan..." />
+    </div>
 
-  <script src="assets/js/data.js"></script>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="katalog.html">Catalog</a>
+      <a href="login.html">Login</a>
+    </nav>
+
+    <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="katalog.html">Catalog</a>
+    <a href="login.html">Login</a>
+  </div>
+
+  <!-- PAGE -->
+  <main class="catalog-layout">
+    <!-- SIDEBAR -->
+    <aside class="catalog-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-header">
+          <h3>Filter Kontrakan</h3>
+          <button id="reset-filter-btn" class="reset-btn">Reset</button>
+        </div>
+
+        <!-- SEARCH -->
+        <div class="filter-group">
+          <label>Cari Kontrakan</label>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="search-input" placeholder="Cari kontrakan..." />
+          </div>
+        </div>
+
+        <!-- SORT -->
+        <div class="filter-group">
+          <label>Urutkan</label>
+          <select id="sort-select">
+            <option value="latest">Terbaru</option>
+            <option value="low">Harga Terendah</option>
+            <option value="high">Harga Tertinggi</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="catalog-content">
+      <div class="content-header">
+        <div>
+          <h1>Daftar Kontrakan</h1>
+          <p>Temukan kontrakan terbaik sesuai kebutuhan Anda</p>
+        </div>
+
+        <div class="result-info">
+          <span id="result-count">0</span>
+          kontrakan ditemukan
+        </div>
+      </div>
+
+      <!-- LOADING -->
+      <div id="loading-state" class="loading-state">
+        <div class="loading-spinner"></div>
+      </div>
+
+      <!-- EMPTY -->
+      <div id="empty-state" class="empty-state hidden">
+        <i class="fa-solid fa-house"></i>
+        <h3>Kontrakan tidak ditemukan</h3>
+        <p>Coba gunakan filter lain</p>
+      </div>
+
+      <!-- RENTALS -->
+      <div id="rentals-grid" class="products-grid"></div>
+    </section>
+  </main>
+
+  <!-- FLOATING WA -->
+  <button id="wa-btn" class="wa-btn" aria-label="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </button>
+
+  <!-- FOOTER -->
+  <!-- <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Toko Berkah</h3>
+        <p>Marketplace kebutuhan harian modern dengan harga terjangkau.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Tentang</a>
+        <a href="#">Bantuan</a>
+        <a href="#">Kontak</a>
+      </div>
+    </div>
+  </footer> -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Toko Berkah</h3>
+
+        <p>Marketplace kebutuhan harian modern dengan harga terjangkau.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#"> Tentang </a>
+
+        <a href="#"> Bantuan </a>
+
+        <a href="#"> Kontak </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/helpers.js"></script>
+  <script src="assets/js/core/state.js"></script>
+
+  <script src="assets/js/services/rental.service.js"></script>
+  <script src="assets/js/services/cms.service.js"></script>
+
   <script src="assets/js/app.js"></script>
-  <script src="assets/js/kontrakan.js"></script>
+  <script src="assets/js/pages/site.js"></script>
+  <script src="assets/js/pages/rental-listing.js"></script>
+
+  <script src="assets/js/components/navbar.js"></script>
 </body>
+
 </html>

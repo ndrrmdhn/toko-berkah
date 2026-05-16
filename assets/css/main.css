@@ -814,3 +814,72 @@ select {
     display: none;
   }
 }
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer {
+
+    background: #111827;
+
+    color: white;
+
+    padding:
+        50px 20px;
+}
+
+.footer-content {
+
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    flex-wrap: wrap;
+}
+
+.footer h3 {
+
+    font-size: 24px;
+
+    margin-bottom: 14px;
+}
+
+.footer p {
+
+    color: #d1d5db;
+
+    max-width: 420px;
+
+    line-height: 1.8;
+}
+
+.footer-links {
+
+    display: flex;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+
+    color: #d1d5db;
+
+    text-decoration: none;
+
+    transition:
+        .25s ease;
+}
+
+.footer-links a:hover {
+
+    color: white;
+}

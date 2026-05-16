@@ -1,317 +1,395 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>Admin Dashboard</title>
-
-  <!-- GOOGLE FONT -->
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  >
-
-  <!-- FONT AWESOME -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-  >
-
-  <!-- CSS -->
-  <link
-    rel="stylesheet"
-    href="assets/css/main.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="assets/css/admin.css"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Toko Berkah</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 
 <body>
-
   <div class="dashboard-layout">
-
     <!-- SIDEBAR -->
     <aside class="sidebar">
-
       <div class="sidebar-brand">
         Toko Berkah
       </div>
-
       <nav class="sidebar-menu">
-
-        <a href="#" class="active">
+        <a href="#" class="sidebar-menu-item active" data-tab="products">
           <i class="fa-solid fa-box"></i>
-          Produk
+          Dashboard
         </a>
-
-        <a href="#">
-          <i class="fa-solid fa-chart-line"></i>
-          Statistik
+        <!-- <a href="#" class="sidebar-menu-item" data-tab="rentals">
+          <i class="fa-solid fa-house"></i>
+          Kontrakan
         </a>
-
-        <a href="#">
-          <i class="fa-solid fa-gear"></i>
-          Pengaturan
-        </a>
-
+        <a href="#" class="sidebar-menu-item" data-tab="cms">
+          <i class="fa-solid fa-pencil"></i>
+          Website
+        </a> -->
       </nav>
-
     </aside>
 
     <!-- MAIN -->
-    <div class="main-content">
-
+    <main class="main-content">
       <!-- TOPBAR -->
       <header class="topbar">
-
         <div>
-          <h2>Dashboard Admin</h2>
-          <p>Kelola produk toko</p>
+          <h1>Dashboard Admin</h1>
+          <p id="section-title">Kelola produk dan konten website</p>
         </div>
-
         <div class="topbar-right">
-
           <span id="admin-name"></span>
-
-          <button
-            id="logout-btn"
-            class="btn btn-dark"
-          >
+          <button type="button" id="logout-btn" class="btn btn-dark">
             Logout
           </button>
-
         </div>
-
       </header>
 
-      <!-- STATS -->
-      <section class="stats-grid">
+      <!-- PRODUCTS TAB -->
+      <div id="products-tab" class="tab-content active">
+        <!-- STATS -->
+        <section class="stats-grid">
+          <div class="stat-card">
+            <h3 id="total-products">0</h3>
+            <p>Total Produk</p>
+          </div>
+          <div class="stat-card">
+            <h3 id="total-stock">0</h3>
+            <p>Total Stok</p>
+          </div>
+        </section>
 
-        <div class="stat-card">
-          <h3 id="total-products">0</h3>
-          <p>Total Produk</p>
+        <!-- TOOLBAR -->
+        <section class="toolbar">
+          <input type="search" id="search-products" placeholder="Cari produk..." aria-label="Cari produk">
+          <button type="button" id="add-product-btn" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i>
+            Tambah Produk
+          </button>
+        </section>
+
+        <!-- LOADING -->
+        <div id="loading-products" class="loading-state hidden">
+          <div class="loading-spinner"></div>
         </div>
 
-        <div class="stat-card">
-          <h3 id="total-stock">0</h3>
-          <p>Total Stok</p>
-        </div>
+        <!-- TABLE -->
+        <section id="table-products" class="table-wrapper">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>Produk</th>
+                <th>Harga</th>
+                <th>Stok</th>
+                <th>Kategori</th>
+                <th>Tampil</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="product-table-body"></tbody>
+          </table>
+        </section>
 
-      </section>
-
-      <!-- TOOLBAR -->
-      <section class="toolbar">
-
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Cari produk..."
-        >
-
-        <div id="empty-state" class="empty-state hidden">
-          Belum ada produk
-        </div>
-
-        <button
-          id="add-product-btn"
-          class="btn btn-primary"
-        >
-          + Tambah Produk
-        </button>
-
-      </section>
-
-      <!-- TABLE -->
-      <div class="table-wrapper">
-
-        <table class="product-table">
-
-          <thead>
-
-            <tr>
-              <th>Produk</th>
-              <th>Harga</th>
-              <th>Stok</th>
-              <th>Kategori</th>
-              <th>Aksi</th>
-            </tr>
-
-          </thead>
-
-          <tbody id="product-table-body"></tbody>
-
-        </table>
-
+        <!-- EMPTY -->
+        <section id="empty-products" class="empty-state hidden">
+          <i class="fa-solid fa-box-open"></i>
+          <h3>Belum Ada Produk</h3>
+          <p>Tambahkan produk pertama Anda</p>
+        </section>
       </div>
 
-      <!-- EMPTY -->
-      <div
-        id="empty-state"
-        class="empty-state hidden"
-      >
+      <!-- RENTALS TAB -->
+      <div id="rentals-tab" class="tab-content">
+        <!-- STATS -->
+        <section class="stats-grid">
+          <div class="stat-card">
+            <h3 id="total-rentals">0</h3>
+            <p>Total Kontrakan</p>
+          </div>
+        </section>
 
-        <i class="fa-solid fa-box-open"></i>
+        <!-- TOOLBAR -->
+        <section class="toolbar">
+          <input type="search" id="search-rentals" placeholder="Cari kontrakan..." aria-label="Cari kontrakan">
+          <button type="button" id="add-rental-btn" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i>
+            Tambah Kontrakan
+          </button>
+        </section>
 
-        <h3>Belum Ada Produk</h3>
+        <!-- LOADING -->
+        <div id="loading-rentals" class="loading-state hidden">
+          <div class="loading-spinner"></div>
+        </div>
 
-        <p>
-          Tambahkan produk pertama Anda
-        </p>
+        <!-- TABLE -->
+        <section id="table-rentals" class="table-wrapper">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>Kontrakan</th>
+                <th>Lokasi</th>
+                <th>Harga</th>
+                <th>Ukuran</th>
+                <th>Tampil</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="rental-table-body"></tbody>
+          </table>
+        </section>
 
+        <!-- EMPTY -->
+        <section id="empty-rentals" class="empty-state hidden">
+          <i class="fa-solid fa-house"></i>
+          <h3>Belum Ada Kontrakan</h3>
+          <p>Tambahkan kontrakan pertama Anda</p>
+        </section>
       </div>
 
-    </div>
+      <!-- CMS TAB -->
+      <div id="cms-tab" class="tab-content">
+        <section class="toolbar">
+          <button type="button" id="edit-cms-btn" class="btn btn-primary">
+            <i class="fa-solid fa-pencil"></i>
+            Edit Konten Website
+          </button>
+        </section>
 
+        <div id="cms-preview" class="cms-preview">
+          <div class="cms-section">
+            <h3>Informasi Website</h3>
+            <p><strong>Nama:</strong> <span id="cms-name">-</span></p>
+            <p><strong>Logo:</strong> <span id="cms-logo">-</span></p>
+            <p><strong>Kontak:</strong> <span id="cms-contact">-</span></p>
+          </div>
+
+          <div class="cms-section">
+            <h3>Banner/Hero</h3>
+            <p><strong>Badge:</strong> <span id="cms-badge">-</span></p>
+            <p><strong>Judul:</strong> <span id="cms-hero-title">-</span></p>
+            <p><strong>Deskripsi:</strong> <span id="cms-hero-subtitle">-</span></p>
+            <p><strong>Tombol Utama:</strong> <span id="cms-primary-cta">-</span></p>
+            <p><strong>Tombol Sekunder:</strong> <span id="cms-secondary-cta">-</span></p>
+          </div>
+
+          <div class="cms-section">
+            <h3>Kategori</h3>
+            <p id="cms-categories">-</p>
+          </div>
+
+          <div class="cms-section">
+            <h3>Judul Sektion</h3>
+            <p><strong>Produk Populer:</strong> <span id="cms-featured-products">-</span></p>
+            <p><strong>Kontrakan Terbaru:</strong> <span id="cms-featured-rentals">-</span></p>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 
-  <!-- MODAL -->
-  <div
-    id="product-modal"
-    class="modal hidden"
-  >
-
+  <!-- PRODUCT MODAL -->
+  <div id="product-modal" class="modal hidden" aria-hidden="true">
     <div class="modal-content">
-
       <div class="modal-header">
-
-        <h2 id="modal-title">
-          Tambah Produk
-        </h2>
-
-        <button id="close-modal-btn">
-          ✕
-        </button>
-
+        <h2 id="product-modal-title">Tambah Produk</h2>
+        <button type="button" id="close-product-modal" aria-label="Tutup modal">✕</button>
       </div>
-
       <form id="product-form">
-
         <div class="form-group">
-
-          <label>Nama Produk</label>
-
-          <input
-            type="text"
-            id="product-name"
-            required
-          >
-
+          <label for="product-name">Nama Produk</label>
+          <input type="text" id="product-name" required autocomplete="off">
         </div>
-
         <div class="form-group">
-
-          <label>Harga</label>
-
-          <input
-            type="number"
-            id="product-price"
-            min="1"
-            required
-          >
-
+          <label for="product-price">Harga</label>
+          <input type="number" id="product-price" min="1" required>
         </div>
-
         <div class="form-group">
-
-          <label>Stok</label>
-
-          <input
-            type="number"
-            id="product-stock"
-            min="0"
-            required
-          >
-
+          <label for="product-stock">Stok</label>
+          <input type="number" id="product-stock" min="0" required>
         </div>
-
         <div class="form-group">
-
-          <label>Kategori</label>
-
+          <label for="product-category">Kategori</label>
           <select id="product-category">
-
-            <option>Sembako</option>
-            <option>Snack</option>
-            <option>Minuman</option>
-
+            <option value="Sembako">Sembako</option>
+            <option value="Snack">Snack</option>
+            <option value="Minuman">Minuman</option>
           </select>
-
         </div>
-
         <div class="form-group">
-
-          <label>Deskripsi</label>
-
-          <textarea
-            id="product-description"
-          ></textarea>
-
+          <label for="product-description">Deskripsi</label>
+          <textarea id="product-description"></textarea>
         </div>
-
         <div class="form-group">
-
-          <label>URL Gambar</label>
-
-          <input
-            type="url"
-            id="product-image"
-          >
-
+          <label for="product-image">URL Gambar</label>
+          <input type="url" id="product-image" placeholder="https://...">
         </div>
-
-        <!-- PREVIEW -->
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="product-visible" checked>
+            Tampilkan di frontend
+          </label>
+        </div>
         <div class="image-preview">
-
-          <img
-            id="preview-image"
-            src="https://placehold.co/300x200"
-            alt="Preview"
-          >
-
+          <img id="preview-product" src="https://placehold.co/300x200" alt="Preview">
         </div>
-
-        <button
-          type="submit"
-          id="submit-btn"
-          class="btn btn-primary full"
-        >
+        <button type="submit" id="submit-product-btn" class="btn btn-primary full">
           Simpan Produk
         </button>
-
       </form>
-
     </div>
+  </div>
 
+  <!-- RENTAL MODAL -->
+  <div id="rental-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="rental-modal-title">Tambah Kontrakan</h2>
+        <button type="button" id="close-rental-modal" aria-label="Tutup modal">✕</button>
+      </div>
+      <form id="rental-form">
+        <div class="form-group">
+          <label for="rental-title">Judul Kontrakan</label>
+          <input type="text" id="rental-title" required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="rental-location">Lokasi</label>
+          <input type="text" id="rental-location" required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="rental-price">Harga Sewa/Bulan</label>
+          <input type="number" id="rental-price" min="1" required>
+        </div>
+        <div class="form-group">
+          <label for="rental-size">Ukuran/Tipe</label>
+          <input type="text" id="rental-size" required autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="rental-description">Deskripsi</label>
+          <textarea id="rental-description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="rental-image">URL Gambar</label>
+          <input type="url" id="rental-image" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="rental-visible" checked>
+            Tampilkan di frontend
+          </label>
+        </div>
+        <div class="image-preview">
+          <img id="preview-rental" src="https://placehold.co/400x260" alt="Preview">
+        </div>
+        <button type="submit" id="submit-rental-btn" class="btn btn-primary full">
+          Simpan Kontrakan
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CMS MODAL -->
+  <div id="cms-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h2>Edit Konten Website</h2>
+        <button type="button" id="close-cms-modal" aria-label="Tutup modal">✕</button>
+      </div>
+      <form id="cms-form">
+        <!-- GENERAL -->
+        <h3>Informasi Umum</h3>
+        <div class="form-group">
+          <label for="cms-site-name">Nama Website</label>
+          <input type="text" id="cms-site-name" required>
+        </div>
+        <div class="form-group">
+          <label for="cms-logo-text">Teks Logo</label>
+          <input type="text" id="cms-logo-text" required>
+        </div>
+        <div class="form-group">
+          <label for="cms-footer-contact">Kontak</label>
+          <input type="text" id="cms-footer-contact">
+        </div>
+        <div class="form-group">
+          <label for="cms-footer-about">Tentang</label>
+          <textarea id="cms-footer-about"></textarea>
+        </div>
+
+        <!-- HERO -->
+        <h3>Banner/Hero Section</h3>
+        <div class="form-group">
+          <label for="cms-hero-badge">Badge</label>
+          <input type="text" id="cms-hero-badge">
+        </div>
+        <div class="form-group">
+          <label for="cms-hero-title-input">Judul</label>
+          <input type="text" id="cms-hero-title-input">
+        </div>
+        <div class="form-group">
+          <label for="cms-hero-subtitle-input">Deskripsi</label>
+          <textarea id="cms-hero-subtitle-input"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="cms-primary-label">Label Tombol Utama</label>
+          <input type="text" id="cms-primary-label">
+        </div>
+        <div class="form-group">
+          <label for="cms-secondary-label">Label Tombol Sekunder</label>
+          <input type="text" id="cms-secondary-label">
+        </div>
+
+        <!-- SECTIONS -->
+        <h3>Judul Section</h3>
+        <div class="form-group">
+          <label for="cms-featured-title">Judul Produk Populer</label>
+          <input type="text" id="cms-featured-title">
+        </div>
+        <div class="form-group">
+          <label for="cms-featured-subtitle">Subtitle Produk Populer</label>
+          <input type="text" id="cms-featured-subtitle">
+        </div>
+        <div class="form-group">
+          <label for="cms-rentals-title">Judul Kontrakan Terbaru</label>
+          <input type="text" id="cms-rentals-title">
+        </div>
+        <div class="form-group">
+          <label for="cms-rentals-subtitle">Subtitle Kontrakan Terbaru</label>
+          <input type="text" id="cms-rentals-subtitle">
+        </div>
+
+        <button type="submit" id="submit-cms-btn" class="btn btn-primary full">
+          Simpan Perubahan
+        </button>
+      </form>
+    </div>
   </div>
 
   <!-- TOAST -->
-  <div id="toast"></div>
+  <div id="toast" role="alert"></div>
 
-  <!-- JS -->
+  <!-- SCRIPTS -->
   <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/helpers.js"></script>
   <script src="assets/js/core/state.js"></script>
 
   <script src="assets/js/services/auth.service.js"></script>
   <script src="assets/js/services/product.service.js"></script>
+  <script src="assets/js/services/rental.service.js"></script>
+  <script src="assets/js/services/cms.service.js"></script>
 
   <script src="assets/js/ui/modal.js"></script>
   <script src="assets/js/ui/toast.js"></script>
 
+  <script src="assets/js/app.js"></script>
   <script src="assets/js/pages/admin.js"></script>
-
+  <script src="assets/js/pages/admin-rentals.js"></script>
+  <script src="assets/js/pages/admin-cms.js"></script>
 </body>
+
 </html>

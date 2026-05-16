@@ -1,186 +1,219 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Toko Berkah - Marketplace Sembako</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- GOOGLE FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <title>Toko Berkah</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- FONT AWESOME -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/main.css" />
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-    <link rel="stylesheet" href="assets/css/home.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/main.css" />
 
-    <link rel="stylesheet" href="assets/css/navbar.css" />
-  </head>
+  <link rel="stylesheet" href="assets/css/home.css" />
 
-  <body>
-    <!-- ======================
+  <link rel="stylesheet" href="assets/css/navbar.css" />
+</head>
+
+<body>
+  <!-- ======================
        NAVBAR
   ======================= -->
 
-    <header class="topbar">
-      <div class="topbar-left">
-        <a href="index.html" class="logo"> Toko Berkah </a>
-      </div>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="logo"> Toko Berkah </a>
+    </div>
 
-      <div class="search-box desktop-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="search-box desktop-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
 
-        <input type="text" placeholder="Cari produk..." />
-      </div>
+      <input type="text" placeholder="Cari produk..." />
+    </div>
 
-      <nav class="nav-links">
-        <a href="index.html"> Home </a>
-
-        <a href="katalog.html"> Catalog </a>
-
-        <a href="login.html"> Login </a>
-      </nav>
-
-      <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </header>
-
-    <!-- MOBILE NAV -->
-
-    <div class="mobile-nav" id="mobile-nav">
+    <nav class="nav-links">
       <a href="index.html"> Home </a>
 
       <a href="katalog.html"> Catalog </a>
 
       <a href="login.html"> Login </a>
-    </div>
+    </nav>
 
-    <!-- ======================
+    <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- MOBILE NAV -->
+
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html"> Home </a>
+
+    <a href="katalog.html"> Catalog </a>
+
+    <a href="login.html"> Login </a>
+  </div>
+
+  <!-- ======================
        HERO
   ======================= -->
 
-    <section class="hero">
-      <div class="hero-content">
-        <span class="hero-badge"> Marketplace Sembako Modern </span>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-badge"> Belanja Mudah Dari Rumah </span>
 
-        <h1>Belanja Kebutuhan Harian Jadi Lebih Mudah</h1>
+      <h1>Belanja Kebutuhan Harian Jadi Lebih Mudah</h1>
 
-        <p>
-          Sembako, minuman, snack, hingga kebutuhan rumah tangga tersedia
-          lengkap dengan harga terbaik.
-        </p>
+      <p>
+        Solusi Praktis untuk Hidup Lebih Nyaman!
+      </p>
 
-        <div class="hero-actions">
-          <a href="katalog.html" class="btn btn-primary"> Belanja Sekarang </a>
+      <div class="hero-actions">
+        <a href="katalog.html" class="btn btn-primary"> Belanja Sekarang </a>
 
-          <a href="#featured-products" class="btn btn-dark"> Lihat Produk </a>
-        </div>
+        <a href="#featured-products" class="btn btn-dark"> Lihat Produk </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ======================
+  <!-- ======================
        CATEGORY
   ======================= -->
 
-    <section class="categories-wrapper">
-      <div class="categories">
-        <button class="cat active">Semua</button>
+  <!-- <section class="categories-wrapper">
+    <div class="categories">
+      <button class="cat active">Semua</button>
 
-        <button class="cat">Sembako</button>
+      <button class="cat">Sembako</button>
 
-        <button class="cat">Minuman</button>
+      <button class="cat">Minuman</button>
 
-        <button class="cat">Snack</button>
+      <button class="cat">Snack</button>
 
-        <button class="cat">Pulsa</button>
+      <button class="cat">Pulsa</button>
 
-        <button class="cat">Kontrakan</button>
-      </div>
-    </section>
+      <button class="cat">Kontrakan</button>
+    </div>
+  </section> -->
 
-    <!-- ======================
+  <!-- ======================
        PRODUCTS
   ======================= -->
 
-    <main class="container">
-      <div class="section-header">
-        <div>
-          <h2>Produk Populer</h2>
+  <main class="container">
+    <div class="section-header">
+      <div>
+        <h2 id="featured-products-title">Produk Pilihan</h2>
 
-          <p>Produk pilihan dengan harga terbaik</p>
-        </div>
+        <p id="featured-products-subtitle">Produk pilihan dengan harga terbaik</p>
       </div>
+    </div>
 
-      <!-- LOADING -->
-      <div id="loading-products" class="loading-state">
-        <div class="loading-spinner"></div>
+    <!-- LOADING -->
+    <div id="loading-products" class="loading-state">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div id="featured-products" class="products-grid"></div>
+
+    <!-- EMPTY -->
+    <div id="empty-products" class="empty-state hidden">
+      <i class="fa-solid fa-box-open"></i>
+
+      <h3>Produk tidak ditemukan</h3>
+
+      <p>Coba lagi nanti</p>
+    </div>
+  </main>
+
+  <!-- ======================
+       RENTALS
+  ======================= -->
+
+  <section class="container">
+    <div class="section-header">
+      <div>
+        <h2 id="featured-rentals-title">Kontrakan Bulanan/Tahunan</h2>
+
+        <p id="featured-rentals-subtitle">Kontrakan pilihan dengan fasilitas lengkap</p>
       </div>
+    </div>
 
-      <!-- PRODUCT GRID -->
-      <div id="featured-products" class="products-grid"></div>
+    <!-- LOADING -->
+    <div id="loading-rentals" class="loading-state">
+      <div class="loading-spinner"></div>
+    </div>
 
-      <!-- EMPTY -->
-      <div id="empty-products" class="empty-state hidden">
-        <i class="fa-solid fa-box-open"></i>
+    <!-- RENTAL GRID -->
+    <div id="featured-rentals" class="products-grid"></div>
 
-        <h3>Produk tidak ditemukan</h3>
+    <!-- EMPTY -->
+    <div id="empty-rentals" class="empty-state hidden">
+      <i class="fa-solid fa-house"></i>
 
-        <p>Coba gunakan kata kunci lain</p>
-      </div>
-    </main>
+      <h3>Kontrakan tidak ditemukan</h3>
 
-    <!-- ======================
+      <p>Coba lagi nanti</p>
+    </div>
+  </section>
+
+  <!-- ======================
        FOOTER
   ======================= -->
 
-    <footer class="footer">
-      <div class="footer-content">
-        <div>
-          <h3>Toko Berkah</h3>
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Toko Berkah</h3>
 
-          <p>Marketplace kebutuhan harian modern dengan harga terjangkau.</p>
-        </div>
-
-        <div class="footer-links">
-          <a href="#"> Tentang </a>
-
-          <a href="#"> Bantuan </a>
-
-          <a href="#"> Kontak </a>
-        </div>
+        <p>Terima kasih telah mengunjungi Toko Berkah. <br>
+          Kami melayani pesan antar dan jangan ragu untuk menanyakan informasi tentang kontrakan.
+          Kami siap membantu kebutuhan Anda!</p>
       </div>
-    </footer>
 
-    <!-- ======================
+      <div class="footer-links">
+        <a href="#"> Jl. Sukun, Kebondalem, Pemalang </a>
+
+        <a href="#"> Buka Setiap Hari 07:00 - 22:00 </a>
+
+        <a href="#"> 0812-1221-4449 </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================
        FLOATING WA
   ======================= -->
 
-    <button class="wa-btn" id="wa-btn" aria-label="Chat WhatsApp">
-      <i class="fa-brands fa-whatsapp"></i>
-    </button>
+  <button class="wa-btn" id="wa-btn" aria-label="Chat WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </button>
 
-    <!-- ======================
+  <!-- ======================
        SCRIPTS
   ======================= -->
 
-    <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/helpers.js"></script>
+  <script src="assets/js/core/state.js"></script>
 
-    <script src="assets/js/services/product.service.js"></script>
+  <script src="assets/js/services/product.service.js"></script>
+  <script src="assets/js/services/rental.service.js"></script>
+  <script src="assets/js/services/cms.service.js"></script>
 
-    <script src="assets/js/pages/home.js"></script>
-    <script src="assets/js/components/navbar.js"></script>
-  </body>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/pages/site.js"></script>
+  <script src="assets/js/pages/home.js"></script>
+</body>
+
 </html>

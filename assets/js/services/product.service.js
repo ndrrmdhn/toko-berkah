@@ -1,60 +1,92 @@
 const ProductService = {
-
   getAll() {
-    return AppState.products;
+    return [...AppState.products];
   },
 
-  create(product) {
+  getVisible() {
+    return this.getAll().filter(
+      product => product.visible !== false
+    );
+  },
 
-    product.id = Date.now();
+  find(id) {
+    return AppState.products.find(
+      product => product.id === Number(id)
+    );
+  },
 
-    AppState.products.unshift(product);
+  create(data) {
+    const now = new Date().toISOString();
 
+    const product = {
+      id: Date.now(),
+      name: sanitize(data.name),
+      slug: createSlug(data.name),
+      price: safeNumber(data.price),
+      stock: safeNumber(data.stock),
+      category: sanitize(data.category),
+      description: sanitize(data.description),
+      image:
+        sanitize(data.image) ||
+        'https://placehold.co/300x200',
+      visible:
+        data.visible !== false,
+      createdAt: now,
+      updatedAt: now
+    };
+
+    AppState.products = [product, ...AppState.products];
     this.save();
 
     return product;
   },
 
   update(id, data) {
+    let updatedProduct = null;
 
-    const index =
-      AppState.products.findIndex(
-        p => p.id === id
-      );
+    AppState.products =
+      AppState.products.map(product => {
+        if (product.id !== Number(id)) {
+          return product;
+        }
 
-    if (index === -1) return false;
+        updatedProduct = {
+          ...product,
+          ...data,
+          slug: createSlug(data.name || product.name),
+          visible:
+            data.visible !== undefined
+              ? data.visible
+              : product.visible,
+          updatedAt: new Date().toISOString()
+        };
 
-    AppState.products[index] = {
-      ...AppState.products[index],
-      ...data
-    };
+        return updatedProduct;
+      });
 
     this.save();
-
-    return true;
+    return updatedProduct;
   },
 
   delete(id) {
+    const exists = AppState.products.some(
+      product => product.id === Number(id)
+    );
+
+    if (!exists) {
+      return false;
+    }
 
     AppState.products =
       AppState.products.filter(
-        p => p.id !== id
+        product => product.id !== Number(id)
       );
 
     this.save();
-  },
-
-  find(id) {
-    return AppState.products.find(
-      p => p.id === id
-    );
+    return true;
   },
 
   save() {
-    Storage.set(
-      'products',
-      AppState.products
-    );
+    Storage.set('products', AppState.products);
   }
-
 };

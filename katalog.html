@@ -1,183 +1,198 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
 
-    <title>Katalog Produk - Toko Berkah</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- GOOGLE FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <title>Katalog Produk - Toko Berkah</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <!-- FONT AWESOME -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/main.css" />
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
-    <link rel="stylesheet" href="assets/css/catalog.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/main.css" />
 
-    <link rel="stylesheet" href="assets/css/navbar.css" />
-  </head>
+  <link rel="stylesheet" href="assets/css/catalog.css" />
 
-  <body>
-    <!-- =========================
+  <link rel="stylesheet" href="assets/css/navbar.css" />
+</head>
+
+<body>
+  <!-- =========================
        NAVBAR
   ========================== -->
 
-    <header class="topbar">
-      <div class="topbar-left">
-        <a href="index.html" class="logo"> Toko Berkah </a>
-      </div>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="logo"> Toko Berkah </a>
+    </div>
 
-      <div class="search-box desktop-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="search-box desktop-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
 
-        <input type="text" placeholder="Cari produk..." />
-      </div>
+      <input type="text" placeholder="Cari produk..." />
+    </div>
 
-      <nav class="nav-links">
-        <a href="index.html"> Home </a>
-
-        <a href="katalog.html"> Catalog </a>
-
-        <a href="login.html"> Login </a>
-      </nav>
-
-      <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </header>
-
-    <!-- MOBILE NAV -->
-
-    <div class="mobile-nav" id="mobile-nav">
+    <nav class="nav-links">
       <a href="index.html"> Home </a>
 
       <a href="katalog.html"> Catalog </a>
 
       <a href="login.html"> Login </a>
-    </div>
+    </nav>
 
-    <!-- =========================
+    <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- MOBILE NAV -->
+
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="index.html"> Home </a>
+
+    <a href="katalog.html"> Catalog </a>
+
+    <a href="login.html"> Login </a>
+  </div>
+
+  <!-- =========================
        PAGE
   ========================== -->
 
-    <main class="catalog-layout">
-      <!-- SIDEBAR -->
+  <main class="catalog-layout">
+    <!-- SIDEBAR -->
 
-      <aside class="catalog-sidebar">
-        <div class="sidebar-card">
-          <div class="sidebar-header">
-            <h3>Filter Produk</h3>
+    <aside class="catalog-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-header">
+          <h3>Filter Produk</h3>
 
-            <button id="reset-filter-btn" class="reset-btn">Reset</button>
-          </div>
-
-          <!-- SEARCH -->
-
-          <div class="filter-group">
-            <label> Cari Produk </label>
-
-            <div class="search-box">
-              <i class="fa-solid fa-magnifying-glass"></i>
-
-              <input
-                type="text"
-                id="search-input"
-                placeholder="Cari produk..."
-              />
-            </div>
-          </div>
-
-          <!-- CATEGORY -->
-
-          <div class="filter-group">
-            <label> Kategori </label>
-
-            <div id="category-chips" class="category-chips"></div>
-          </div>
-
-          <!-- SORT -->
-
-          <div class="filter-group">
-            <label> Urutkan </label>
-
-            <select id="sort-select">
-              <option value="latest">Produk Terbaru</option>
-
-              <option value="low">Harga Terendah</option>
-
-              <option value="high">Harga Tertinggi</option>
-            </select>
-          </div>
+          <button id="reset-filter-btn" class="reset-btn">Reset</button>
         </div>
-      </aside>
 
-      <!-- CONTENT -->
+        <!-- SEARCH -->
 
-      <section class="catalog-content">
-        <div class="content-header">
-          <div>
-            <h1>Semua Produk</h1>
+        <div class="filter-group">
+          <label> Cari Produk </label>
 
-            <p>Temukan kebutuhan harian terbaik</p>
-          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
 
-          <div class="result-info">
-            <span id="result-count"> 0 </span>
-
-            produk ditemukan
+            <input type="text" id="search-input" placeholder="Cari produk..." />
           </div>
         </div>
 
-        <!-- LOADING -->
+        <!-- CATEGORY -->
 
-        <div id="loading-state" class="loading-state">
-          <div class="loading-spinner"></div>
+        <div class="filter-group">
+          <label> Kategori </label>
+
+          <div id="category-chips" class="category-chips"></div>
         </div>
 
-        <!-- EMPTY -->
+        <!-- SORT -->
 
-        <div id="empty-state" class="empty-state hidden">
-          <i class="fa-solid fa-box-open"></i>
+        <div class="filter-group">
+          <label> Urutkan </label>
 
-          <h3>Produk tidak ditemukan</h3>
+          <select id="sort-select">
+            <option value="latest">Produk Terbaru</option>
 
-          <p>Coba gunakan filter lain</p>
+            <option value="low">Harga Terendah</option>
+
+            <option value="high">Harga Tertinggi</option>
+          </select>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+
+    <section class="catalog-content">
+      <div class="content-header">
+        <div>
+          <h1>Semua Produk</h1>
+
+          <p>Temukan kebutuhan harian terbaik</p>
         </div>
 
-        <!-- PRODUCTS -->
+        <div class="result-info">
+          <span id="result-count"> 0 </span>
 
-        <div id="products-grid" class="products-grid"></div>
-      </section>
-    </main>
+          produk ditemukan
+        </div>
+      </div>
 
-    <!-- FLOATING WA -->
+      <!-- LOADING -->
 
-    <button id="wa-btn" class="wa-btn" aria-label="WhatsApp">
-      <i class="fa-brands fa-whatsapp"></i>
-    </button>
+      <div id="loading-state" class="loading-state">
+        <div class="loading-spinner"></div>
+      </div>
 
-    <!-- =========================
+      <!-- EMPTY -->
+
+      <div id="empty-state" class="empty-state hidden">
+        <i class="fa-solid fa-box-open"></i>
+
+        <h3>Produk tidak ditemukan</h3>
+
+        <p>Coba gunakan filter lain</p>
+      </div>
+
+      <!-- PRODUCTS -->
+
+      <div id="products-grid" class="products-grid"></div>
+    </section>
+  </main>
+
+  <!-- FLOATING WA -->
+
+  <button id="wa-btn" class="wa-btn" aria-label="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </button>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Toko Berkah</h3>
+
+        <p>Marketplace kebutuhan harian modern dengan harga terjangkau.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#"> Tentang </a>
+
+        <a href="#"> Bantuan </a>
+
+        <a href="#"> Kontak </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================
        SCRIPTS
   ========================== -->
 
-    <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/storage.js"></script>
+  <script src="assets/js/core/helpers.js"></script>
+  <script src="assets/js/core/state.js"></script>
 
-    <script src="assets/js/services/product.service.js"></script>
+  <script src="assets/js/services/product.service.js"></script>
+  <script src="assets/js/services/cms.service.js"></script>
 
-    <script src="assets/js/pages/catalog.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/pages/site.js"></script>
+  <script src="assets/js/pages/catalog.js"></script>
 
-    <script src="assets/js/components/navbar.js"></script>
-  </body>
+  <script src="assets/js/components/navbar.js"></script>
+</body>
+
 </html>
